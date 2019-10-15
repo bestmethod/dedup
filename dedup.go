@@ -12,7 +12,6 @@ import (
 	"sort"
 	"strings"
 	"sync"
-	"syscall"
 )
 
 type mainStruct struct {
@@ -214,11 +213,7 @@ func (m *mainStruct) doWalk(path string, info os.FileInfo, err error) error {
 	nFile := new(fileStruct)
 	nFile.name = info.Name()
 	nFile.path = path
-	stat, ok := info.Sys().(*syscall.Stat_t)
-	if !ok {
-		nFile.inode = "+"
-	}
-	nFile.inode = fmt.Sprintf("%d+%d", stat.Dev, stat.Ino)
+	nFile.inode = getSys(info)
 	fileSize := info.Size()
 	fileSha, err := getSum(path)
 	if err != nil {
