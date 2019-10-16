@@ -213,7 +213,7 @@ func (m *mainStruct) doWalk(path string, info os.FileInfo, err error) error {
 	nFile := new(fileStruct)
 	nFile.name = info.Name()
 	nFile.path = path
-	nFile.inode = getSys(info)
+	nFile.inode = getSys(info, path)
 	fileSize := info.Size()
 	fileSha, err := getSum(path)
 	if err != nil {

@@ -8,7 +8,7 @@ import (
 	"syscall"
 )
 
-func getSys(info os.FileInfo) string {
+func getSys(info os.FileInfo, path string) string {
 	stat, ok := info.Sys().(*syscall.Stat_t)
 	if !ok {
 		return "+"
